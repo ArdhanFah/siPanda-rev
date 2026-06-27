@@ -455,10 +455,11 @@
     }
 
     function saveSessionToDatabase(learningDurationMinutes) {
+        @auth
         const metaTag = document.querySelector('meta[name="csrf-token"]');
         if (!metaTag) return;
 
-        fetch("{{ route('pomodoro.store') }}", {
+        fetch("{{ route('pomodoro.store', [], false) }}", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -508,6 +509,17 @@
                     () => {}
                 );
             });
+        @else
+        showCustomNotif(
+            "Siklus Selesai!",
+            "Siklus Pomodoro selesai! Silakan masuk (login) untuk menyimpan riwayat belajarmu secara permanen.",
+            PANDA_GIFS.popup,
+            "bg-gradient-to-r from-[#75cb50] to-[#10b981] shadow-[0_4px_12px_rgba(34,197,94,0.2)]",
+            () => {
+                resetUIAfterComplete();
+            }
+        );
+        @endauth
     }
 
     function showCustomNotif(title, message, gifUrl, btnClass, callback) {

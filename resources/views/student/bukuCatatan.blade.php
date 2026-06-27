@@ -469,7 +469,7 @@
                         <div class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">
                             ISI CATATAN
                         </div>
-                        <div class="prose-catatan text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+                        <div id="catatan-content-pdf" class="prose-catatan text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
                             {!! Str::markdown($selectedCatatan->isi) !!}
                         </div>
 
@@ -517,7 +517,7 @@
                                 </svg>
                                 Edit
                             </button>
-                            <button class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
+                            <button id="btn-download-pdf-catatan" class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
@@ -732,6 +732,109 @@
         // ==========================================
         const toast = document.getElementById('toast-success');
         if (toast) setTimeout(() => toast.remove(), 4000);
+
+        // ==========================================
+        // Download PDF
+        // ==========================================
+        function downloadSummaryAsPDF(contentElement, title = 'Catatan siPanda') {
+            const today = new Date().toLocaleDateString('id-ID', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.style.width = '794px';
+            wrapper.style.margin = '0';
+            wrapper.style.boxSizing = 'border-box';
+            wrapper.style.fontFamily = "'Inter', sans-serif";
+            wrapper.style.padding = '40px';
+            wrapper.style.backgroundColor = '#ffffff';
+
+            // Header
+            const header = document.createElement('div');
+            header.innerHTML = `
+                <div style="border-bottom: 2px solid #75cb50; padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1 style="color: #0f172a; margin: 0; font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: bold;">siPanda</h1>
+                        <p style="color: #75cb50; margin: 2px 0 0 0; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Catatan Belajar</p>
+                    </div>
+                    <div style="text-align: right; color: #64748b; font-size: 11px;">
+                        <p style="margin: 0; font-weight: 500;">Tanggal: ${today}</p>
+                    </div>
+                </div>
+                <h2 style="font-family: 'Outfit', sans-serif; color: #0f172a; font-size: 20px; font-weight: 700; margin-bottom: 25px; border-left: 4px solid #75cb50; padding-left: 10px; line-height: 1.3;">${title}</h2>
+            `;
+            wrapper.appendChild(header);
+
+            // Clone the content to preserve Tailwind CSS!
+            const contentClone = contentElement.cloneNode(true);
+            // Force light text color on the clone just in case
+            contentClone.style.color = '#334155';
+            wrapper.appendChild(contentClone);
+
+            // Footer
+            const footer = document.createElement('div');
+            footer.innerHTML = `
+                <div style="margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 15px; text-align: center; color: #94a3b8; font-size: 10px;">
+                    <p style="margin: 0;">Dokumen ini dihasilkan dari Buku Catatan siPanda.</p>
+                </div>
+            `;
+            wrapper.appendChild(footer);
+
+            // Temporarily remove dark mode class so PDF renders in light mode styling
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+            }
+
+            const generatePdf = () => {
+                const opt = {
+                    margin:       0,
+                    filename:     title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_catatan.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff', scrollY: 0 },
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: ['css', 'legacy'] }
+                };
+                
+                html2pdf().set(opt).from(wrapper).save().then(() => {
+                    // Restore dark mode immediately after capture
+                    if (isDark) {
+                        document.documentElement.classList.add('dark');
+                    }
+                });
+            };
+
+            if (typeof html2pdf === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = generatePdf;
+                document.head.appendChild(script);
+            } else {
+                generatePdf();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnPdf = document.getElementById('btn-download-pdf-catatan');
+            if (btnPdf) {
+                btnPdf.addEventListener('click', function() {
+                    const contentDiv = document.getElementById('catatan-content-pdf');
+                    @if($selectedCatatan)
+                        const title = "{{ $selectedCatatan->judul }}";
+                    @else
+                        const title = "Catatan";
+                    @endif
+                    if (contentDiv) {
+                        // Pass the ELEMENT itself, not innerHTML
+                        downloadSummaryAsPDF(contentDiv, title);
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

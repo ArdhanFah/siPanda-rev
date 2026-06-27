@@ -32,7 +32,9 @@ class GamifikasiController extends Controller
         $mins = $totalMinutes % 60;
 
         // AI Usage Statistics
-        $aiUsageLogs = \App\Models\AiUsageLog::where('user_id', auth()->user()->id)->get();
+        $aiUsageLogs = \App\Models\AiUsageLog::where('user_id', auth()->user()->id)
+            ->where('created_at', '>=', now()->startOfWeek())
+            ->get();
         $totalAiRequests = $aiUsageLogs->count();
         $totalTokens = $aiUsageLogs->sum('total_tokens');
         $summaryRequests = $aiUsageLogs->where('activity_type', 'summary')->count();

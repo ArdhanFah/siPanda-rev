@@ -405,7 +405,7 @@
         function downloadSummaryAsPDF(htmlContent, title = 'Rangkuman AI') {
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
-            
+
             // Strip all classes to prevent Tailwind or dark mode styles from interfering
             doc.querySelectorAll('*').forEach(el => {
                 el.removeAttribute('class');
@@ -422,7 +422,7 @@
             doc.querySelectorAll('h1').forEach(h => h.style.setProperty('font-size', '20px', 'important'));
             doc.querySelectorAll('h2').forEach(h => h.style.setProperty('font-size', '18px', 'important'));
             doc.querySelectorAll('h3').forEach(h => h.style.setProperty('font-size', '16px', 'important'));
-            
+
             doc.querySelectorAll('p').forEach(p => {
                 p.style.setProperty('color', '#334155', 'important');
                 p.style.setProperty('margin-bottom', '12px', 'important');
@@ -453,11 +453,11 @@
                 el.style.setProperty('break-inside', 'avoid', 'important');
             });
 
-            const today = new Date().toLocaleDateString('id-ID', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            const today = new Date().toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
 
             const styledHtml = `
@@ -484,13 +484,25 @@
 
             const generatePdf = () => {
                 const opt = {
-                    margin:       [0.6, 0.6, 0.6, 0.6],
-                    filename:     title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_rangkuman_ai.pdf',
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
-                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    margin: [0.6, 0.6, 0.6, 0.6],
+                    filename: title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_rangkuman_ai.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 0.98
+                    },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        letterRendering: true,
+                        backgroundColor: '#ffffff'
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'letter',
+                        orientation: 'portrait'
+                    }
                 };
-                
+
                 html2pdf().set(opt).from(styledHtml).save();
             };
 
@@ -563,16 +575,16 @@
         let durasiMenit = Math.round((waktuSelesaiBelajar - waktuMulaiBelajar) / 60000);
 
         // SYARAT UJI COBA: Ganti >= 1 jadi >= 0 sementara biar gampang ngetesnya
-        if (durasiMenit >= 1){
+        if (durasiMenit >= 1) {
             let tzOffset = (new Date()).getTimezoneOffset() * 60000;
             let mulaiLocal = (new Date(waktuMulaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
             let selesaiLocal = (new Date(waktuSelesaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
 
             window.autoLogActivity(
-                "Membaca Materi", 
-                "{{ $materi->judul ?? 'Materi Pembelajaran' }}", 
-                mulaiLocal, 
-                selesaiLocal, 
+                "Membaca Materi",
+                "{{ $materi->judul ?? 'Materi Pembelajaran' }}",
+                mulaiLocal,
+                selesaiLocal,
                 80
             );
             dataSudahTerkirim = true;
@@ -587,7 +599,7 @@
     });
 
     // Pemicu 2: Saat refresh atau close browser (Cadangan)
-    window.addEventListener('beforeunload', function () {
+    window.addEventListener('beforeunload', function() {
         kirimDataSesi();
     });
 </script>

@@ -62,6 +62,15 @@ class ChatController extends Controller
 
     public function processAi(Request $request)
     {
+        // Check weekly AI token limit
+        $weeklyTokens = \App\Models\AiUsageLog::where('user_id', auth()->id())
+            ->where('created_at', '>=', now()->startOfWeek())
+            ->sum('total_tokens');
+
+        if ($weeklyTokens >= 50000) {
+            return back()->with('error', 'Batas token AI mingguan Anda telah habis (50.000 token). Silakan tunggu hingga minggu depan.');
+        }
+
         if ($request->has('materi_id')) {
             try {
                 // 1. Ambil teks asli dari database
