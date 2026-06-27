@@ -59,22 +59,18 @@ _(Tambahkan tangkapan layar langsung dari aplikasimu di bawah ini agar GitHub ka
 <p align="center">
   <img src="public/images/sipanda_dashboard.png" width="80%" alt="Dashboard Screenshot">
 </p>
-*Dashboard yang menampilkan rangkuman AI, card grid statistik (2x2), dan area upload dokumen berbentuk modern.*
 
 ### 2. Kartu Runtunan (Streak Share Card)
 
 <p align="center">
-  <img src="public/images/sipanda_streak.png" width="300px" alt="Streak Share Card">
+  <img src="public/images/sipanda_streak.png" width="80%px" alt="Streak Share Card">
 </p>
-*Bentuk hasil download Kartu Runtunan dengan rasio 9:16, dihiasi warna gradasi api sesuai pencapaian (Tier).*
 
 ### 3. Notifikasi Pomodoro & Loader AI
 
 <p align="center">
-  <img src="public/images/sipanda_pomodoro.png" width="60%" alt="Notification Screenshot">
+  <img src="public/images/sipanda_pomodoro.png" width="80%" alt="Notification Screenshot">
 </p>
-*Animasi GIF siPanda yang muncul secara 3D (pop-out) di luar kotak dialog saat waktu habis atau saat AI memproses dokumen.*
-
 ---
 
 ## Tech Stack & Instalasi
