@@ -1,6 +1,6 @@
 <div align="center">
 
-![siPanda Banner](/home/ardhan/.gemini/antigravity-ide/brain/f71c45dc-e965-4565-ac41-8d5b11182f5c/sipanda_banner_1782584969691.png)
+![siPanda Banner](public/images/sipanda_banner.png)
 
 # siPanda
 
