@@ -40,6 +40,20 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 'panels::head.end',
                 fn(): string => \Illuminate\Support\Facades\Blade::render('
+                    <script>
+                        (function () {
+                            const colorTheme = localStorage.getItem("color-theme");
+                            if (colorTheme) {
+                                localStorage.setItem("theme", colorTheme);
+                            }
+                            
+                            if (localStorage.getItem("color-theme") === "dark" || (!("color-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                                document.documentElement.classList.add("dark");
+                            } else {
+                                document.documentElement.classList.remove("dark");
+                            }
+                        })();
+                    </script>
                     <style>
                         aside.fi-sidebar,
                         aside.fi-sidebar > div,
@@ -173,6 +187,9 @@ class AdminPanelProvider extends PanelProvider
                 'panels::auth.register.form.after',
                 fn(): string => \Illuminate\Support\Facades\Blade::render('
                     <style>
+                        .fi-fo-field-wrp-error-message {
+                            display: none !important;
+                        }
                         .google-btn-container {
                             margin-top: 1.5rem;
                             display: flex;
