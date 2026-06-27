@@ -18,61 +18,74 @@
 ## Fitur Utama
 
 ### 1. Asisten Belajar AI (Smart Summarization & Quiz)
+
 Membaca materi PDF atau artikel panjang tak perlu memakan waktu berjam-jam.
-- **Rangkum Otomatis:** Cukup unggah dokumen (PDF), dan AI siPanda akan langsung membacanya, mengekstrak poin penting, dan menampilkannya dalam format catatan (*Markdown*) yang indah dan mudah dipahami.
-- **Latihan Soal AI:** Uji pemahaman Anda! Sistem akan menghasilkan kuis *Pilihan Ganda* interaktif berdasarkan dokumen yang Anda pelajari, memberikan evaluasi instan.
+
+- **Rangkum Otomatis:** Cukup unggah dokumen (PDF), dan AI siPanda akan langsung membacanya, mengekstrak poin penting, dan menampilkannya dalam format catatan (_Markdown_) yang indah dan mudah dipahami.
+- **Latihan Soal AI:** Uji pemahaman Anda! Sistem akan menghasilkan kuis _Pilihan Ganda_ interaktif berdasarkan dokumen yang Anda pelajari, memberikan evaluasi instan.
 
 ### 2. Gamifikasi (Sistem Runtunan / Streak)
-Jaga konsistensi belajarmu dengan sistem *Gamification* modern.
-- Lakukan aktivitas belajar (login, rangkum, kuis) setiap hari untuk meningkatkan "Runtunan" (*Streak*) apimu.
+
+Jaga konsistensi belajarmu dengan sistem _Gamification_ modern.
+
+- Lakukan aktivitas belajar (login, rangkum, kuis) setiap hari untuk meningkatkan "Runtunan" (_Streak_) apimu.
 - Semakin tinggi Runtunan Anda, semakin keren Badge dan Warna Api (dari Oren, Biru, Ungu, hingga Emas).
-- **Pamerkan!** Bagikan "Kartu Runtunan" (*Share Card*) berbentuk potret (9:16) berdesain elegan ke media sosial (Instagram Story/WhatsApp) hanya dengan satu klik *download*.
+- **Pamerkan!** Bagikan "Kartu Runtunan" (_Share Card_) berbentuk potret (9:16) berdesain elegan ke media sosial (Instagram Story/WhatsApp) hanya dengan satu klik _download_.
 
 ### 3. Pewaktu Pomodoro Super Ketat
+
 Fokus total tanpa distraksi!
+
 - Sistem Pomodoro dengan desain melayang yang interaktif.
-- **Mode Terkunci (Lock Screen):** Saat sesi *istirahat* tiba, siPanda akan **mengunci** layarmu agar kamu benar-benar beristirahat. 
-- **Game Lompat Panda:** Sambil menunggu waktu istirahat selesai, kamu bisa memainkan *mini-game* Lompat Panda langsung di dalam modal pengunci layar untuk meregangkan pikiran.
+- **Mode Terkunci (Lock Screen):** Saat sesi _istirahat_ tiba, siPanda akan **mengunci** layarmu agar kamu benar-benar beristirahat.
+- **Game Lompat Panda:** Sambil menunggu waktu istirahat selesai, kamu bisa memainkan _mini-game_ Lompat Panda langsung di dalam modal pengunci layar untuk meregangkan pikiran.
 
 ### 4. Desain Modern (Glassmorphism & Dark Mode)
+
 Antarmuka pengguna (UI) yang dibuat dengan gaya paling kekinian.
+
 - Mengusung identitas warna hijau neon khas siPanda (`#75cb50`).
-- Elemen *glassmorphism* (kaca transparan), animasi halus, serta ikon dan efek *Glow/Shadow* kelas premium.
-- Semua notifikasi dan loader tampil *pop-out* secara interaktif, seperti gelembung teks tempat siPanda berbicara.
+- Elemen _glassmorphism_ (kaca transparan), animasi halus, serta ikon dan efek _Glow/Shadow_ kelas premium.
+- Semua notifikasi dan loader tampil _pop-out_ secara interaktif, seperti gelembung teks tempat siPanda berbicara.
 
 ---
 
 ## Tangkapan Layar (Screenshots)
 
-*(Tambahkan tangkapan layar langsung dari aplikasimu di bawah ini agar GitHub kamu terlihat profesional)*
+_(Tambahkan tangkapan layar langsung dari aplikasimu di bawah ini agar GitHub kamu terlihat profesional)_
 
 ### 1. Dashboard Utama
+
 <p align="center">
-  <img src="https://via.placeholder.com/800x450/111827/75cb50.png?text=+Dashboard+siPanda+" width="80%" alt="Dashboard Screenshot">
+  <img src="public/images/sipanda_dashboard.png" width="80%" alt="Dashboard Screenshot">
 </p>
 *Dashboard yang menampilkan rangkuman AI, card grid statistik (2x2), dan area upload dokumen berbentuk modern.*
 
 ### 2. Kartu Runtunan (Streak Share Card)
+
 <p align="center">
-  <img src="https://via.placeholder.com/320x540/111827/75cb50.png?text=+Streak+Card+" width="300px" alt="Streak Share Card">
+  <img src="public/images/sipanda_streak.png" width="300px" alt="Streak Share Card">
 </p>
 *Bentuk hasil download Kartu Runtunan dengan rasio 9:16, dihiasi warna gradasi api sesuai pencapaian (Tier).*
 
 ### 3. Notifikasi Pomodoro & Loader AI
+
 <p align="center">
-  <img src="https://via.placeholder.com/600x350/111827/75cb50.png?text=+Pomodoro+%26+Loader+" width="60%" alt="Notification Screenshot">
+  <img src="public/images/sipanda_pomodoro.png" width="60%" alt="Notification Screenshot">
 </p>
 *Animasi GIF siPanda yang muncul secara 3D (pop-out) di luar kotak dialog saat waktu habis atau saat AI memproses dokumen.*
 
 ---
 
 ## Tech Stack & Instalasi
-1. **Backend:** Laravel 11.x
-2. **Admin Panel:** Filament PHP v3
+
+1. **Backend:** Laravel 12.x
+2. **Admin Panel:** Filament PHP v5
 3. **Frontend:** TailwindCSS, Alpine.js, Blade Components
 4. **JS Library:** html2canvas, html2pdf.js
 
 ### Cara Menjalankan di Lokal:
+
 ```bash
 # 1. Clone repositori
 git clone https://github.com/username/sipanda.git
