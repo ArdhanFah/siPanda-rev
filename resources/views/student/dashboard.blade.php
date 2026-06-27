@@ -304,9 +304,9 @@ if ($currentStreak < 10) {
             <!-- sideabar -->
             @include('student.partials.sidebar')
 
-            <main class="ml-0 lg:ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen pt-20 lg:pt-8">
+            <main class="ml-0 lg:ml-72 flex-1 px-4 sm:px-8 xl:px-14 pb-8 min-h-screen pt-20 lg:pt-8">
 
-                <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6 pt-4">
+                <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 sm:mb-12 gap-4 sm:gap-6 pt-4">
                     @auth
                     <div>
                         <h1
@@ -326,21 +326,21 @@ if ($currentStreak < 10) {
                     @endauth
                 </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    <div class="glass p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12">
+                    <div class="glass p-4 sm:p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p
                                     class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
                                     Target Belajar</p>
                                 <h2
-                                    class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">
-                                    {{ $todoDone }}<span class="text-xl text-slate-400 dark:text-slate-500 font-medium">/{{ $todoTotal }}</span>
+                                    class="font-heading text-2xl sm:text-4xl font-black text-slate-900 dark:text-white transition-colors">
+                                    {{ $todoDone }}<span class="text-sm sm:text-xl text-slate-400 dark:text-slate-500 font-medium">/{{ $todoTotal }}</span>
                                 </h2>
                             </div>
                             <div
-                                class="w-12 h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
                                     </path>
@@ -356,20 +356,20 @@ if ($currentStreak < 10) {
                         </div>
                     </div>
 
-                    <div class="glass p-6 group cursor-default">
+                    <div class="glass p-4 sm:p-6 group cursor-default">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p
                                     class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
                                     Runtunan</p>
                                 <h2
-                                    class="font-heading text-4xl font-black {{ $streakColorClass }} {{ $streakGlowClass }} transition-colors">
-                                    {{ $currentStreak }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
+                                    class="font-heading text-2xl sm:text-4xl font-black {{ $streakColorClass }} {{ $streakGlowClass }} transition-colors">
+                                    {{ $currentStreak }} <span class="text-sm sm:text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
                                 </h2>
                             </div>
                             <div
-                                class="w-12 h-12 rounded-xl {{ $streakBgClass }} flex items-center justify-center {{ $streakColorClass }} border {{ $streakBorderClass }} group-hover:scale-105 transition duration-300 {{ $streakIconAnim }}">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl {{ $streakBgClass }} flex items-center justify-center {{ $streakColorClass }} border {{ $streakBorderClass }} group-hover:scale-105 transition duration-300 {{ $streakIconAnim }}">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z">
                                     </path>
@@ -387,24 +387,24 @@ if ($currentStreak < 10) {
                         @endif
                     </div>
 
-                    <div class="glass p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
+                    <div class="glass p-4 sm:p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p
                                     class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
                                     Waktu Belajar</p>
                                 <h2
-                                    class="font-heading text-4xl font-black text-[#75cb50] drop-shadow-[0_0_10px_rgba(34,197,94,0.3)]">
+                                    class="font-heading text-2xl sm:text-4xl font-black text-[#75cb50] drop-shadow-[0_0_10px_rgba(34,197,94,0.3)]">
                                     @if($totalStudyTime >= 60)
-                                    {{ floor($totalStudyTime / 60) }}<span class="text-xl text-slate-400 dark:text-slate-500 font-medium">j</span> {{ $totalStudyTime % 60 }}<span class="text-xl text-slate-400 dark:text-slate-500 font-medium">m</span>
+                                    {{ floor($totalStudyTime / 60) }}<span class="text-sm sm:text-xl text-slate-400 dark:text-slate-500 font-medium">j</span> {{ $totalStudyTime % 60 }}<span class="text-sm sm:text-xl text-slate-400 dark:text-slate-500 font-medium">m</span>
                                     @else
-                                    {{ $totalStudyTime }}<span class="text-xl text-slate-400 dark:text-slate-500 font-medium">m</span>
+                                    {{ $totalStudyTime }}<span class="text-sm sm:text-xl text-slate-400 dark:text-slate-500 font-medium">m</span>
                                     @endif
                                 </h2>
                             </div>
                             <div
-                                class="w-12 h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
                                     </path>
@@ -414,20 +414,20 @@ if ($currentStreak < 10) {
                         <p class="text-xs text-slate-500 mt-5 font-medium">{{ $totalSessionsCount }} sesi belajar aktif</p>
                     </div>
 
-                    <div class="glass p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
+                    <div class="glass p-4 sm:p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p
                                     class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
                                     Buku Catatan</p>
                                 <h2
-                                    class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">
-                                    {{ $totalNotes }}<span class="text-xl text-slate-400 dark:text-slate-500 font-medium"> catatan</span>
+                                    class="font-heading text-2xl sm:text-4xl font-black text-slate-900 dark:text-white transition-colors">
+                                    {{ $totalNotes }}<span class="text-sm sm:text-xl text-slate-400 dark:text-slate-500 font-medium"> cttn</span>
                                 </h2>
                             </div>
                             <div
-                                class="w-12 h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                     </path>
@@ -439,7 +439,7 @@ if ($currentStreak < 10) {
                 </div>
 
                 <div
-                    class="glass p-10 lg:p-16 flex flex-col items-center justify-center text-center relative overflow-hidden group border-t border-t-[#75cb50]/20 mt-10">
+                    class="glass p-6 sm:p-10 lg:p-16 flex flex-col items-center justify-center text-center relative overflow-hidden group border-t border-t-[#75cb50]/20 mt-10">
                     <div
                         class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none">
                     </div>
@@ -448,8 +448,8 @@ if ($currentStreak < 10) {
                     </div>
 
                     <div
-                        class="relative z-10 w-24 h-24 rounded-3xl bg-gradient-to-br from-[#10b981]/20 to-[#75cb50]/5 mb-8 flex items-center justify-center border border-[#75cb50]/30 holo-glow group-hover:scale-110 transition-transform duration-700 ease-out shadow-[inset_0_0_20px_rgba(34,197,94,0.2)]">
-                        <svg class="w-10 h-10 text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] animate-pulse"
+                        class="relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-[#10b981]/20 to-[#75cb50]/5 mb-6 sm:mb-8 flex items-center justify-center border border-[#75cb50]/30 holo-glow group-hover:scale-110 transition-transform duration-700 ease-out shadow-[inset_0_0_20px_rgba(34,197,94,0.2)]">
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] animate-pulse"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                                 d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
@@ -458,17 +458,17 @@ if ($currentStreak < 10) {
                     </div>
 
                     <h2
-                        class="relative z-10 font-heading text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-5 tracking-tight transition-colors">
+                        class="relative z-10 font-heading text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-3 sm:mb-5 tracking-tight transition-colors">
                         Mulai Belajar dengan <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-[#75cb50] to-[#10b981]">AI</span>
                     </h2>
-                    <p class="relative z-10 text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-2xl leading-relaxed">
+                    <p class="relative z-10 text-slate-500 dark:text-slate-400 text-sm sm:text-lg mb-8 sm:mb-12 max-w-2xl leading-relaxed">
                         Unggah materi belajarmu dan biarkan AI membuat ringkasan materi serta latihan soal secara otomatis
                         dalam hitungan detik. Cerdas, cepat, dan efisien.
                     </p>
 
                     <form action="{{ route('ai.process') }}" method="POST" enctype="multipart/form-data"
-                        class="w-full relative z-10 max-w-3xl mx-auto glass p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8 border border-[#75cb50]/20 bg-white/50 dark:bg-[#121212]/50 shadow-[0_10px_40px_rgba(34,197,94,0.1)]">
+                        class="w-full relative z-10 max-w-3xl mx-auto glass p-5 sm:p-8 rounded-2xl sm:rounded-3xl flex flex-col md:flex-row items-center gap-5 sm:gap-8 border border-[#75cb50]/20 bg-white/50 dark:bg-[#121212]/50 shadow-[0_10px_40px_rgba(34,197,94,0.1)]">
                         @csrf
 
                         <!-- File Upload Area -->
@@ -477,7 +477,7 @@ if ($currentStreak < 10) {
                                 class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Unggah
                                 Materi <span class="text-xs font-normal text-slate-500">(PDF, DOCX, PPT)</span></label>
                             <label id="dropzone-container"
-                                class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
+                                class="flex flex-col items-center justify-center w-full h-32 sm:h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <div id="upload-icon"
                                         class="mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">
@@ -511,8 +511,8 @@ if ($currentStreak < 10) {
                             </div>
 
                             <button type="submit"
-                                class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3 px-4 sm:py-4 sm:px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 text-sm sm:text-base">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                         d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                 </svg>
@@ -538,20 +538,20 @@ if ($currentStreak < 10) {
                     {{-- KOTAK HASIL RANGKUMAN DARI UPLOAD PDF --}}
                     @if(session('ai_summary'))
                     <div id="ai-summary-result"
-                        class="mt-16 w-full max-w-4xl mx-auto bg-[#75cb50]/5 dark:bg-[#75cb50]/10 border-2 border-[#75cb50]/30 rounded-3xl p-8 md:p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
+                        class="mt-10 sm:mt-16 w-full max-w-4xl mx-auto bg-[#75cb50]/5 dark:bg-[#75cb50]/10 border-2 border-[#75cb50]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 border-b border-[#75cb50]/20 pb-6">
                             <div class="flex items-center gap-4">
                                 <div
-                                    class="w-14 h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
-                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
+                                    <svg class="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
                                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                         </path>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
-                                    <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
+                                    <h3 class="font-heading text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
+                                    <p class="text-[10px] sm:text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
                                         Anda</p>
                                 </div>
                             </div>
@@ -565,7 +565,7 @@ if ($currentStreak < 10) {
 
                         {{-- Render Markdown persis seperti di Ruang Baca --}}
                         <div id="ai-summary-content-upload"
-                            class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+                            class="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base text-left">
                             {!! Str::markdown(session('ai_summary')) !!}
                         </div>
                     </div>
@@ -590,7 +590,7 @@ if ($currentStreak < 10) {
 
                     @if(isset($summary))
                     <div
-                        class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-[#75cb50]/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
+                        class="glass p-6 sm:p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-[#75cb50]/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
                         <div
                             class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none">
                         </div>
@@ -616,7 +616,7 @@ if ($currentStreak < 10) {
                         </div>
 
                         <div id="ai-summary-content-db"
-                            class="relative z-10 prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic">
+                            class="relative z-10 prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic text-sm sm:text-base text-left">
                             {!! Str::markdown($summary->summary_text ?? '') !!}
                         </div>
 
@@ -635,7 +635,7 @@ if ($currentStreak < 10) {
 
                     @if(session('quiz_result'))
                     <div
-                        class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-blue-500/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
+                        class="glass p-6 sm:p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-blue-500/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
                         <div
                             class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-blue-500/10 to-transparent opacity-60 pointer-events-none">
                         </div>

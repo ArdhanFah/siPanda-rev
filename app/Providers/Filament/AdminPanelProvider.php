@@ -61,6 +61,27 @@ class AdminPanelProvider extends PanelProvider
                         aside.fi-sidebar .fi-sidebar-nav {
                             background: transparent !important;
                         }
+
+                        /* Fix Filament Auth Card on Mobile */
+                        @media (max-width: 640px) {
+                            .fi-simple-main-ctn, .fi-simple-page {
+                                padding-left: 1rem !important;
+                                padding-right: 1rem !important;
+                            }
+                            .fi-simple-main {
+                                max-width: 100% !important;
+                                width: 100% !important;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                            }
+                            .fi-simple-main section {
+                                padding: 1.5rem !important;
+                                border-radius: 1.25rem !important;
+                            }
+                            .google-btn-container {
+                                margin-top: 1rem !important;
+                            }
+                        }
                         
                         aside.fi-sidebar {
                             background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #f7f6f0 50%, #effaf0 100%) !important;

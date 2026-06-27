@@ -56,22 +56,53 @@
     </div>
 </div>
 
-<div id="pomodoro-notif-modal" class="fixed inset-0 bg-slate-950/40 dark:bg-slate-950/60 backdrop-blur-sm z-[70] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hidden">
-    <div class="relative bg-white/90 dark:bg-black/60 backdrop-blur-xl border border-black/5 dark:border-white/5 w-[300px] p-6 rounded-3xl shadow-2xl text-center transform scale-90 transition-all duration-300">
+<style>
+    @keyframes bounce-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+    .animate-bounce-float {
+        animation: bounce-float 3s infinite ease-in-out;
+    }
+</style>
 
-        <div class="relative flex justify-center mb-4">
-            <div class="absolute inset-0 bg-[#75cb50] blur-2xl opacity-20 rounded-full scale-150"></div>
-            <div class="relative w-40 h-40 flex items-center justify-center">
-                <img id="notif-gif" src="" alt="Notif Animasi" class="w-full h-full object-contain">
-            </div>
+<div id="pomodoro-notif-modal" class="fixed inset-0 bg-slate-950/40 dark:bg-slate-950/70 backdrop-blur-md z-[70] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hidden">
+    
+    <!-- Modal Container -->
+    <div class="relative w-[380px] pt-28 flex flex-col items-center transform scale-90 transition-all duration-300" id="notif-modal-content">
+        
+        <!-- Floating GIF (Popping out) -->
+        <div class="absolute top-0 z-20 flex justify-center w-full pointer-events-none drop-shadow-[0_20px_20px_rgba(0,0,0,0.3)] animate-bounce-float">
+            <!-- Background Glow -->
+            <div class="absolute top-10 bg-[#75cb50] w-32 h-32 blur-3xl opacity-40 rounded-full"></div>
+            <img id="notif-gif" src="" alt="Notif Animasi" class="relative w-48 h-48 object-contain">
         </div>
 
-        <h3 id="notif-title" class="font-heading font-black text-lg text-slate-900 dark:text-white mb-2 tracking-wide"></h3>
-        <p id="notif-message" class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed"></p>
+        <!-- Speech Bubble Card Body -->
+        <div class="relative bg-white dark:bg-[#1a1b23] border border-slate-200 dark:border-white/10 w-full p-8 pt-16 rounded-[2.5rem] shadow-2xl text-center">
+            
+            <!-- Speech Bubble Tail pointing to Panda -->
+            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-0 h-0 
+                        border-l-[20px] border-l-transparent 
+                        border-r-[20px] border-r-transparent 
+                        border-b-[24px] border-b-white dark:border-b-[#1a1b23] z-10"></div>
+            
+            <!-- Border for the tail (trick to match card border) -->
+            <div class="absolute -top-[21px] left-1/2 transform -translate-x-1/2 w-0 h-0 
+                        border-l-[22px] border-l-transparent 
+                        border-r-[22px] border-r-transparent 
+                        border-b-[26px] border-b-slate-200 dark:border-b-white/10 z-0"></div>
 
-        <button id="notif-btn" onclick="closeNotifModal()" class="w-full py-3 rounded-xl font-bold text-sm text-white transition-all shadow-lg hover:scale-[1.02] border border-slate-200 dark:border-white/10">
-            Oke, Siap!
-        </button>
+            <h3 id="notif-title" class="relative z-20 font-heading font-black text-2xl text-slate-900 dark:text-white mb-3 tracking-wide"></h3>
+            
+            <div class="relative z-20 bg-slate-50 dark:bg-white/5 p-5 rounded-2xl mb-8 border border-slate-100 dark:border-white/5">
+                <p id="notif-message" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium"></p>
+            </div>
+
+            <button id="notif-btn" onclick="closeNotifModal()" class="relative z-20 w-full py-4 rounded-2xl font-extrabold text-sm text-white transition-all shadow-[0_10px_20px_rgba(117,203,80,0.25)] hover:scale-[1.03] active:scale-[0.98] bg-gradient-to-r from-[#75cb50] to-[#10b981] border-none">
+                Oke, Siap!
+            </button>
+        </div>
     </div>
 </div>
 

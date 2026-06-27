@@ -254,7 +254,7 @@
                 Pahami inti & atur jeda
             </div>
 
-            <h1 class="font-heading text-5xl sm:text-7xl md:text-[80px] lg:text-[90px] font-black tracking-tighter leading-[0.95] mb-8 text-panda-black dark:text-white">
+            <h1 class="font-heading text-4xl sm:text-6xl md:text-[80px] lg:text-[90px] font-black tracking-tighter leading-[1.1] sm:leading-[0.95] mb-6 sm:mb-8 text-panda-black dark:text-white">
                 Si<br class="hidden lg:block" />
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-bamboo-fresh to-bamboo-emerald drop-shadow-[0_10px_20px_rgba(34,197,94,0.3)]">Panda.</span>
             </h1>
@@ -265,7 +265,7 @@
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
                 @auth
-                <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-6 py-3 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                     Masuk ke Beranda
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -273,14 +273,14 @@
                 </a>
                 @else
                 @if (Route::has('register'))
-                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-6 py-3 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                     Mulai Gratis
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                     </svg>
                 </a>
                 @else
-                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-6 py-3 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                     Mulai Gratis
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -289,7 +289,7 @@
                 @endif
                 @endauth
 
-                <a href="" class="w-full sm:w-auto justify-center glass-panel px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-extrabold text-base sm:text-lg text-panda-gray dark:text-white/80 hover:bg-white dark:hover:bg-panda-gray hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 border-2 border-white dark:border-white/10">
+                <a href="" class="w-full sm:w-auto justify-center glass-panel px-6 py-3 sm:px-10 sm:py-5 rounded-[2rem] font-extrabold text-base sm:text-lg text-panda-gray dark:text-white/80 hover:bg-white dark:hover:bg-panda-gray hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 border-2 border-white dark:border-white/10">
                     <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-panda-black flex items-center justify-center shadow-lg border border-white/20">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"></path>
@@ -436,7 +436,7 @@
             <div class="h-1 w-20 bg-bamboo-fresh mx-auto mt-4 sm:mt-6 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             <!-- Card 1 -->
             <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
                 <div>
