@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>siPanda - Digital Bamboo Forest</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|outfit:400,500,600,700,800,900" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+
+    <!-- Tailwind CSS Fallback for rapid UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        panda: {
+                            black: '#121212',
+                            gray: '#2a2a2a',
+                            white: '#ffffff'
+                        },
+                        bamboo: {
+                            fresh: '#75cb50',
+                            /* Main brand green */
+                            emerald: '#10b970',
+                            /* Secondary green */
+                            light: '#dcfce7',
+                            /* Light glowing green */
+                        },
+                        cream: '#f2f1e8',
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-medium': 'float 6s ease-in-out infinite',
+                        'float-fast': 'float 4s ease-in-out infinite',
+                        'leaf-fall': 'fall 15s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0) rotate(-1deg)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px) rotate(2deg)'
+                            },
+                        },
+                        fall: {
+                            '0%': {
+                                transform: 'translateY(-10vh) rotate(0deg) translateX(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(50vh) rotate(180deg) translateX(50px)'
+                            },
+                            '100%': {
+                                transform: 'translateY(110vh) rotate(360deg) translateX(-50px)'
+                            },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': {
+                                opacity: 1,
+                                filter: 'drop-shadow(0 0 10px rgba(34,197,94,0.6))'
+                            },
+                            '50%': {
+                                opacity: 0.8,
+                                filter: 'drop-shadow(0 0 20px rgba(34,197,94,0.9))'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(15, 23, 42, 0.15);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .dark .glass-panel {
+            background: rgba(18, 18, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .holo-glow {
+            background: rgba(34, 197, 94, 0.05);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), inset 0 0 20px rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(0, 123, 45, 0.8);
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen text-slate-800 dark:text-cream bg-f3f4f6 dark:bg-panda-black font-sans relative overflow-x-hidden flex flex-col selection:bg-bamboo-fresh selection:text-white transition-colors duration-300">
+
+    <!-- Soft-focus 3D bamboo leaves and stalks Floating Ambient Background -->
+    <div class="fixed top-0 bottom-0 left-[8%] w-8 bg-gradient-to-r from-bamboo-light/40 to-bamboo-fresh/10 blur-[12px] z-[-1] pointer-events-none rounded-full"></div>
+    <div class="fixed top-0 bottom-0 right-[25%] w-12 bg-gradient-to-l from-bamboo-light/30 to-bamboo-emerald/10 blur-[15px] z-[-1] animate-pulse pointer-events-none rounded-full"></div>
+    <div class="fixed top-[20%] left-[60%] w-6 bg-gradient-to-r from-bamboo-fresh/15 to-transparent blur-[8px] transform rotate-[35deg] z-[-1] h-[150vh] -translate-y-[50%] pointer-events-none rounded-full"></div>
+
+    <!-- Floating Bamboo Leaves -->
+    <div class="fixed top-[-10vh] left-[15vw] text-bamboo-fresh/40 blur-[3px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 22s;">
+        <svg class="h-14 w-14 fill-current" viewBox="0 0 24 24">
+            <path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path>
+        </svg>
+    </div>
+    <div class="fixed top-[-10vh] left-[45vw] text-bamboo-emerald/30 blur-[5px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 18s; animation-delay: 5s;">
+        <svg class="h-10 w-10 fill-current" viewBox="0 0 24 24">
+            <path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path>
+        </svg>
+    </div>
+    <div class="fixed top-[-10vh] left-[75vw] text-bamboo-fresh/20 blur-[4px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 26s; animation-delay: 2s;">
+        <svg class="h-16 w-16 fill-current" viewBox="0 0 24 24">
+            <path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path>
+        </svg>
+    </div>
+    <div class="fixed top-[-10vh] left-[90vw] text-bamboo-emerald/40 blur-[2px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 15s; animation-delay: 8s;">
+        <svg class="h-8 w-8 fill-current" viewBox="0 0 24 24">
+            <path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path>
+        </svg>
+    </div>
+
+    <!-- Sleek Top Navigation Bar -->
+    <header class="w-full max-w-[1600px] mx-auto flex justify-between items-center p-6 md:p-8 z-50 relative">
+        <div class="flex items-center gap-3 group cursor-pointer">
+            <div class="flex items-center justify-center transition-transform group-hover:scale-105">
+                <img src="{{ asset('images/logo.svg') }}" alt="siPanda Logo" class="h-[2.5rem] sm:h-[3rem] w-auto block dark:hidden" />
+                <img src="{{ asset('images/logo-white.svg') }}" alt="siPanda Logo Dark" class="h-[2.5rem] sm:h-[3rem] w-auto hidden dark:block" />
+            </div>
+        </div>
+
+        <!-- Desktop Navigation Center -->
+        <nav class="hidden lg:flex gap-1 glass-panel dark:border-panda-gray p-1.5 rounded-full font-semibold text-slate-700 dark:text-cream shadow-sm">
+            <a href="/" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Beranda</a>
+            <a href="#tentang" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Tentang</a>
+            <a href="#fitur" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Fitur Unggulan</a>
+
+            <!-- Desktop Theme Toggle -->
+            <button id="theme-toggle" class="px-4 py-2 hover:bg-white/80 dark:hover:bg-panda-gray rounded-full transition-all flex items-center">
+                <svg id="theme-toggle-dark-icon" class="hidden w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Right Side Container (Desktop Auth & Mobile Buttons) -->
+        <div class="flex items-center gap-3 md:gap-4 relative z-[100]">
+            <!-- Desktop Auth Actions -->
+            <div class="hidden lg:flex items-center gap-4">
+                @auth
+                <a href="{{ url('/dashboard') }}" class="px-6 py-2.5 rounded-full font-bold text-white bg-panda-black hover:bg-panda-gray transition-all shadow-md text-sm">
+                    Dashboard
+                </a>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="text-red-500 hover:text-red-700 text-sm font-bold cursor-pointer transition">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+                @else
+                <a href="{{ route('filament.admin.auth.login') }}" class="font-bold text-slate-600 dark:text-cream hover:text-panda-black dark:hover:text-white transition text-sm">
+                    Masuk
+                </a>
+                <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
+                    Mulai Gratis
+                </a>
+                @endauth
+            </div>
+
+            <!-- Mobile Controls: Theme Toggle & Hamburger side-by-side -->
+            <div class="flex lg:hidden items-center gap-2">
+                <!-- Mobile Theme Toggle next to hamburger -->
+                <button id="theme-toggle-mobile-btn" class="p-2.5 rounded-xl border border-black/5 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-cream hover:bg-black/5 dark:hover:bg-white/10 transition focus:outline-none flex items-center justify-center">
+                    <svg id="theme-toggle-mobile-dark-icon" class="hidden w-5 h-5 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                    <svg id="theme-toggle-mobile-light-icon" class="hidden w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </button>
+
+                <!-- Hamburger Button -->
+                <button id="menu-toggle" class="p-2.5 text-slate-700 dark:text-cream hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="menu-toggle-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Floating Menu Dropdown -->
+    <div id="mobile-menu" class="fixed top-[90px] left-6 right-6 lg:hidden bg-white/95 dark:bg-panda-black/95 backdrop-blur-2xl border border-black/5 dark:border-white/10 rounded-3xl p-6 shadow-2xl z-[150] transform scale-95 opacity-0 pointer-events-none transition-all duration-300 origin-top flex flex-col gap-6">
+        <nav class="flex flex-col gap-4 text-center text-base font-bold">
+            <a href="/" class="text-slate-800 dark:text-cream hover:text-bamboo-fresh py-2 rounded-xl transition-all">Beranda</a>
+            <a href="#tentang" class="text-slate-800 dark:text-cream hover:text-bamboo-fresh py-2 rounded-xl transition-all">Tentang</a>
+            <a href="#fitur" class="text-slate-800 dark:text-cream hover:text-bamboo-fresh py-2 rounded-xl transition-all">Fitur Unggulan</a>
+        </nav>
+
+        <div class="h-px bg-black/5 dark:bg-white/10 w-full"></div>
+
+        <div class="flex flex-col gap-3">
+            @auth
+            <a href="{{ url('/dashboard') }}" class="w-full text-center bg-panda-black dark:bg-white text-white dark:text-panda-black px-6 py-3 rounded-xl font-bold transition-all shadow-md text-sm">
+                Dashboard
+            </a>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="w-full text-center text-red-500 hover:text-red-700 font-bold py-2 transition text-sm">
+                Logout
+            </a>
+            @else
+            <a href="{{ route('filament.admin.auth.login') }}" class="w-full text-center border border-black/10 dark:border-white/10 text-slate-700 dark:text-cream px-6 py-3 rounded-xl font-bold transition text-sm">
+                Masuk
+            </a>
+            <a href="{{ url('/sipanda/register') }}" class="w-full text-center bg-bamboo-fresh text-white px-6 py-3 rounded-xl font-bold transition shadow-lg shadow-bamboo-fresh/20 text-sm">
+                Mulai Gratis
+            </a>
+            @endauth
+        </div>
+    </div>
+
+    <!-- Main Landing Content -->
+    <main class="flex-1 w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-center relative z-10 min-h-[85vh] px-6 pb-20">
+
+        <!-- Left Content: Typography & CTA -->
+        <div class="w-full lg:w-[45%] z-20 relative text-center lg:text-left mb-16 lg:mb-0">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mix-blend-multiply bg-bamboo-fresh/10 border border-bamboo-fresh/30 text-xs font-extrabold uppercase tracking-widest text-bamboo-emerald mb-6">
+                <span class="w-2 h-2 rounded-full bg-bamboo-fresh animate-pulse"></span>
+                Pahami inti & atur jeda
+            </div>
+
+            <h1 class="font-heading text-5xl sm:text-7xl md:text-[80px] lg:text-[90px] font-black tracking-tighter leading-[0.95] mb-8 text-panda-black dark:text-white">
+                Si<br class="hidden lg:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-bamboo-fresh to-bamboo-emerald drop-shadow-[0_10px_20px_rgba(34,197,94,0.3)]">Panda.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl md:text-2xl text-slate-500 dark:text-slate-300 font-medium max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-sans">
+                Belajar tidak perlu begadang agar terhindar dari 'mata panda'.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
+                @auth
+                <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                    Enter Dashboard
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+                @else
+                @if (Route::has('register'))
+                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                    Mulai Gratis
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+                @else
+                <a href="{{ url('/sipanda/register') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                    Mulai Gratis
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+                @endif
+                @endauth
+
+                <a href="" class="w-full sm:w-auto justify-center glass-panel px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-extrabold text-base sm:text-lg text-panda-gray dark:text-white/80 hover:bg-white dark:hover:bg-panda-gray hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 border-2 border-white dark:border-white/10">
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-panda-black flex items-center justify-center shadow-lg border border-white/20">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </div>
+                    Lihat Mode AI
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Content: Floating Hero Graphics (Panda + Glassmorphic elements) -->
+        <div class="w-full lg:w-[55%] relative z-20 flex justify-center lg:justify-end px-2 sm:px-4">
+
+            <!-- Main Glassmorphic Panel (Fluid Aspect Ratio) -->
+            <div class="glass-panel w-full max-w-[550px] aspect-square rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 flex flex-col relative animate-float-slow backdrop-blur-3xl shadow-[0_40px_80px_rgba(0,0,0,0.07)]">
+
+                <!-- Top Window controls -->
+                <div class="flex items-center justify-between mb-4 sm:mb-8">
+                    <div class="flex gap-2">
+                        <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-red-400 border border-red-500 shadow-inner"></div>
+                        <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-yellow-400 border border-yellow-500 shadow-inner"></div>
+                        <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-bamboo-fresh border border-bamboo-emerald shadow-inner"></div>
+                    </div>
+                    @auth
+                    <div class="px-3 py-1 sm:px-5 sm:py-1.5 bg-white/60 rounded-full text-[9px] sm:text-[10px] font-extrabold text-slate-500 uppercase tracking-widest border border-white">
+                        Hi, {{ auth()->user()->name }}
+                    </div>
+                    @endauth
+                </div>
+
+                <!-- Inside panel workspace (Hologram & Panda) -->
+                <div class="relative flex-1 flex flex-col items-center justify-end rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-b from-white/20 to-black/5 overflow-visible border border-white/50">
+
+                    <!-- Glowing Green Hologram (AI Summarized Text - Scales beautifully) -->
+                    <div class="absolute top-[10%] sm:top-[15%] left-1/2 transform -translate-x-1/2 w-[85%] sm:w-[260px] holo-glow bg-bamboo-fresh/10 rounded-2xl p-4 sm:p-5 animate-pulse-glow z-20 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2 mb-0.5">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-bamboo-fresh animate-spin" style="animation-duration: 3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            <span class="text-[10px] sm:text-xs font-bold text-bamboo-fresh uppercase tracking-widest">Memproses Data...</span>
+                        </div>
+                        <!-- Hologram text lines -->
+                        <div class="h-2 w-1/3 bg-bamboo-fresh opacity-80 rounded-full mb-0.5 drop-shadow-[0_0_5px_rgba(34,197,94,1)]"></div>
+                        <div class="h-1 sm:h-1.5 w-full bg-bamboo-fresh opacity-60 rounded-full"></div>
+                        <div class="h-1 sm:h-1.5 w-5/6 bg-bamboo-fresh opacity-60 rounded-full"></div>
+                        <div class="h-1 sm:h-1.5 w-4/6 bg-bamboo-fresh opacity-60 rounded-full"></div>
+                        <div class="h-1 sm:h-1.5 w-[90%] bg-bamboo-fresh opacity-60 rounded-full mt-0.5"></div>
+
+                        <div class="absolute -bottom-5 sm:-bottom-6 left-1/2 transform -translate-x-1/2 border-x-[10px] sm:border-x-[15px] border-x-transparent border-t-[18px] sm:border-t-[25px] border-t-bamboo-fresh/20 blur-[2px]"></div>
+                    </div>
+
+                    <!-- Minimalist Cute 3D Panda character (Fluid Sizing) -->
+                    <div class="relative z-10 w-[150px] sm:w-[220px] h-[150px] sm:h-[220px] bg-panda-black rounded-t-[4rem] sm:rounded-t-[5rem] flex justify-center shadow-2xl mt-auto transform translate-y-2 border-x-4 border-t-4 border-white/10">
+                        <!-- Panda Face Board -->
+                        <div class="w-[120px] sm:w-[180px] h-[95px] sm:h-[140px] bg-white rounded-[3rem] sm:rounded-[4rem] shadow-[inset_0_-10px_20px_rgba(0,0,0,0.1)] mt-4 sm:mt-6 relative">
+
+                            <!-- Panda Ears -->
+                            <div class="absolute -top-4 sm:-top-6 -left-2 sm:-left-3 w-[40px] sm:w-[60px] h-[40px] sm:h-[60px] bg-panda-black rounded-full -z-10 shadow-[inset_0_-5px_10px_rgba(255,255,255,0.2)]"></div>
+                            <div class="absolute -top-4 sm:-top-6 -right-2 sm:-right-3 w-[40px] sm:w-[60px] h-[40px] sm:h-[60px] bg-panda-black rounded-full -z-10 shadow-[inset_0_-5px_10px_rgba(255,255,255,0.2)]"></div>
+
+                            <!-- Emerald Green Headphones (Over ear) -->
+                            <div class="absolute top-6 sm:top-8 -left-3.5 sm:-left-5 w-[18px] sm:w-[25px] h-[45px] sm:h-[65px] bg-bamboo-emerald rounded-[0.7rem] sm:rounded-[1rem] shadow-[-5px_0_15px_rgba(16,185,129,0.5)] border-2 border-bamboo-light"></div>
+                            <div class="absolute top-6 sm:top-8 -right-3.5 sm:-right-5 w-[18px] sm:w-[25px] h-[45px] sm:h-[65px] bg-bamboo-emerald rounded-[0.7rem] sm:rounded-[1rem] shadow-[5px_0_15px_rgba(16,185,129,0.5)] border-2 border-bamboo-light"></div>
+                            <!-- Headphone band -->
+                            <div class="absolute -top-[30px] sm:-top-[45px] left-1/2 transform -translate-x-1/2 w-[145px] sm:w-[220px] h-[50px] sm:h-[70px] border-t-[10px] sm:border-t-[14px] border-x-[10px] sm:border-x-[14px] border-bamboo-emerald rounded-t-[3rem] sm:rounded-t-[4rem] -z-20"></div>
+
+                            <!-- Panda Eyes patches -->
+                            <div class="absolute top-7 sm:top-10 left-3 sm:left-5 w-[30px] sm:w-[45px] h-[38px] sm:h-[55px] bg-panda-black rounded-[1.5rem] sm:rounded-[2rem] transform -rotate-[20deg] shadow-inner flex items-center justify-center">
+                                <!-- Eye sparkles looking up at hologram -->
+                                <div class="w-2.5 h-3.5 sm:w-4 sm:h-5 bg-white rounded-full -translate-y-1 sm:-translate-y-2 translate-x-0.5 sm:translate-x-1 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                                <div class="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full translate-y-1 sm:translate-y-2 translate-x-1.5 sm:translate-x-3"></div>
+                            </div>
+                            <div class="absolute top-7 sm:top-10 right-3 sm:right-5 w-[30px] sm:w-[45px] h-[38px] sm:h-[55px] bg-panda-black rounded-[1.5rem] sm:rounded-[2rem] transform rotate-[20deg] shadow-inner flex items-center justify-center">
+                                <div class="w-2.5 h-3.5 sm:w-4 sm:h-5 bg-white rounded-full -translate-y-1 sm:-translate-y-2 -translate-x-0.5 sm:-translate-x-1 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                                <div class="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full translate-y-1 sm:translate-y-2 -translate-x-1.5 sm:-translate-x-3"></div>
+                            </div>
+
+                            <!-- Cute tiny Nose & Mouth -->
+                            <div class="absolute top-[60px] sm:top-[85px] left-1/2 transform -translate-x-1/2 w-4 sm:w-5 h-2 sm:h-3 bg-panda-black rounded-[2rem]"></div>
+                            <div class="absolute top-[66px] sm:top-[92px] left-1/2 transform -translate-x-1/2 w-6 sm:w-8 h-2.5 sm:h-4 border-b-2 sm:border-b-4 border-panda-black rounded-b-full"></div>
+
+                            <!-- Hologram reflection on face -->
+                            <div class="absolute top-1 left-1/2 transform -translate-x-1/2 w-[80px] sm:w-[120px] h-[25px] sm:h-[40px] bg-bamboo-fresh/10 blur-[10px] rounded-full pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Floating Widget 1: Pomodoro Timer (Responsive position & auto-hiding on mobile) -->
+            <div class="hidden md:flex absolute -left-10 lg:-left-16 bottom-[10%] dark-glass rounded-[2.5rem] p-5 animate-float-medium z-30 shadow-[0_20px_40px_rgba(0,0,0,0.3)] items-center gap-5 border border-white/20 transform rotate-1">
+                <div class="relative w-20 h-20 flex items-center justify-center bg-panda-black rounded-full shadow-inner">
+                    <svg class="absolute inset-0 w-full h-full transform -rotate-90 scale-90" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="44" fill="none" class="stroke-white/10" stroke-width="8"></circle>
+                        <!-- Progress bar glowing green -->
+                        <circle cx="50" cy="50" r="44" fill="none" class="stroke-bamboo-fresh drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]" stroke-width="8" stroke-dasharray="276" stroke-dashoffset="50" stroke-linecap="round"></circle>
+                    </svg>
+                    <span class="text-white font-heading font-black text-xl">25<span class="animate-pulse opacity-50">:</span>00</span>
+                </div>
+                <div>
+                    <h4 class="text-white font-extrabold text-base mb-1">Pomodoro</h4>
+                    <p class="text-bamboo-fresh text-[10px] tracking-[0.2em] uppercase font-bold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-bamboo-fresh rounded-full animate-pulse"></span>
+                        Fokus Aktif
+                    </p>
+                </div>
+            </div>
+
+            <!-- Floating Widget 2: AI Summary Log (Responsive position & auto-hiding on mobile) -->
+            <div class="hidden md:block absolute -right-6 lg:-right-10 top-[20%] glass-panel rounded-[2rem] p-6 animate-float-fast z-30 shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-[240px] border border-white transform -rotate-2">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-bamboo-emerald text-white flex items-center justify-center shadow-lg shadow-bamboo-emerald/40">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-heading font-extrabold text-slate-800 text-sm">Log Ringkasan</h4>
+                    </div>
+                </div>
+                <div class="space-y-3 bg-white/50 p-4 rounded-xl border border-white shadow-inner">
+                    <div class="h-2 w-full bg-bamboo-emerald/30 rounded-full"></div>
+                    <div class="h-2 w-4/5 bg-bamboo-emerald/30 rounded-full"></div>
+                    <div class="h-2 w-[85%] bg-bamboo-emerald/30 rounded-full"></div>
+                    <div class="flex items-center gap-1.5 mt-4 border-t border-white/80 pt-3">
+                        <div class="w-5 h-5 rounded-full bg-bamboo-light flex items-center justify-center text-bamboo-emerald">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-600 uppercase tracking-widest">Ringkas</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Section 1: Fitur Cerdas untuk Calon Analis -->
+    <section id="fitur" class="w-full max-w-[1400px] mx-auto px-6 py-10 md:py-20 relative z-10">
+        <div class="text-center mb-8 sm:mb-16">
+            <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-black text-panda-black dark:text-cream">Fitur Cerdas untuk Calon Analis</h2>
+            <div class="h-1 w-20 bg-bamboo-fresh mx-auto mt-4 sm:mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8">
+            <!-- Card 1 -->
+            <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
+                <div>
+                    <div class="w-9 h-9 sm:w-14 sm:h-14 rounded-xl bg-bamboo-light dark:bg-bamboo-fresh/20 flex items-center justify-center text-bamboo-emerald mb-3 sm:mb-6 shadow-sm">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.795 0-5.482-.186-8.135-.54-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Ringkasan AI & Catatan</h3>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">AI otomatis meringkas kebutuhan dari data ke catatan tersusun.</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
+                <div>
+                    <div class="w-9 h-9 sm:w-14 sm:h-14 rounded-xl bg-bamboo-light dark:bg-bamboo-fresh/20 flex items-center justify-center text-bamboo-emerald mb-3 sm:mb-6 shadow-sm">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Timer Fokus 25/5</h3>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Gunakan interval produktif untuk menyelesaikan tugas analis.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
+                <div>
+                    <div class="w-9 h-9 sm:w-14 sm:h-14 rounded-xl bg-bamboo-light dark:bg-bamboo-fresh/20 flex items-center justify-center text-bamboo-emerald mb-3 sm:mb-6 shadow-sm">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Kuis Interaktif</h3>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Kuis skenario kasus nyata untuk menguji skill pemahaman.</p>
+            </div>
+            <!-- Card 4 -->
+            <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
+                <div>
+                    <div class="w-9 h-9 sm:w-14 sm:h-14 rounded-xl bg-bamboo-light dark:bg-bamboo-fresh/20 flex items-center justify-center text-bamboo-emerald mb-3 sm:mb-6 shadow-sm">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Target Harian</h3>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Daftar tugas mini lini masa untuk memantau tugas hari ini.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Visual Dashboard Analisis Log & Gamification -->
+    <section class="w-full max-w-[1400px] mx-auto px-6 py-10 md:py-20 relative z-10 flex flex-col lg:flex-row gap-6 lg:gap-12">
+        <!-- Streak Gamification -->
+        <div class="glass-panel dark:dark-glass rounded-3xl sm:rounded-[3rem] p-6 sm:p-10 flex-1 relative overflow-hidden border border-white/50 dark:border-white/10">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-orange-400/10 rounded-full blur-3xl"></div>
+            <h3 class="font-heading font-black text-2xl sm:text-3xl text-panda-black dark:text-cream mb-6 sm:mb-8">Runtunan Belajar Aktif</h3>
+
+            <div class="flex items-center gap-4 bg-white/50 dark:bg-panda-black/50 p-4 sm:p-6 rounded-2xl border border-white/20">
+                <div class="flex-1 flex justify-between">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.2s;">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.4s;">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.6s;">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <!-- Inactive flames -->
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
+                        <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
+                        <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
+                        <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-4 font-bold text-slate-500 dark:text-slate-400 text-center flex items-center justify-center gap-1.5 text-sm sm:text-base">
+                4 Hari berturut-turut! Lanjutkan performa hebatmu!
+                <svg class="w-5 h-5 text-orange-500 inline animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                </svg>
+            </p>
+        </div>
+
+        <!-- Dashboard Log -->
+        <div class="glass-panel dark:dark-glass rounded-3xl sm:rounded-[3rem] p-6 sm:p-10 flex-1 relative border border-white/50 dark:border-white/10">
+            <h3 class="font-heading font-black text-2xl sm:text-3xl text-panda-black dark:text-cream mb-6 sm:mb-8">Statistik Mingguan</h3>
+
+            <div class="flex h-40 items-end gap-2 sm:gap-6 bg-white/50 dark:bg-panda-black/50 p-4 sm:p-6 rounded-2xl border border-white/20">
+                <!-- Bar Chart HTML/CSS -->
+                <div class="flex flex-col items-center flex-1 h-full justify-end">
+                    <div class="w-full bg-bamboo-emerald/30 rounded-t-lg h-[40%] flex items-end justify-center group relative cursor-pointer hover:bg-bamboo-emerald/50 transition-colors">
+                        <span class="absolute -top-7 px-2 py-1 bg-panda-black text-white rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">2 Jam</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 font-bold uppercase">Sen</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 h-full justify-end">
+                    <div class="w-full bg-bamboo-emerald/80 rounded-t-lg h-[80%] flex items-end justify-center group relative cursor-pointer hover:bg-bamboo-emerald transition-colors drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">
+                        <span class="absolute -top-7 px-2 py-1 bg-panda-black text-white rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">4 Jam</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 font-bold uppercase">Sel</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 h-full justify-end">
+                    <div class="w-full bg-bamboo-emerald/50 rounded-t-lg h-[60%] flex items-end justify-center group relative cursor-pointer hover:bg-bamboo-emerald/70 transition-colors">
+                        <span class="absolute -top-7 px-2 py-1 bg-panda-black text-white rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">3 Jam</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 font-bold uppercase">Rab</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 h-full justify-end">
+                    <div class="w-full bg-bamboo-emerald rounded-t-lg h-[100%] flex items-end justify-center group relative cursor-pointer hover:bg-bamboo-emerald transition-colors drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]">
+                        <span class="absolute -top-7 px-2 py-1 bg-panda-black text-white rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">5 Jam</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 font-bold uppercase">Kam</span>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-5 px-2">
+                <p class="font-extrabold text-sm text-panda-black dark:text-cream">Durasi Belajar: <span class="text-bamboo-emerald">14 Jam</span></p>
+                <p class="font-extrabold text-sm text-panda-black dark:text-cream">Penggunaan AI: <span class="text-bamboo-fresh">32 Perintah</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Infografis Alur Belajar -->
+    <section class="w-full max-w-[1200px] mx-auto px-6 py-10 md:py-20 relative z-10">
+        <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl text-center font-black text-panda-black dark:text-cream mb-12 sm:mb-16">Alur Belajar Optimal</h2>
+
+        <div class="flex flex-col md:flex-row justify-between items-center relative">
+            <!-- Dashed Line Connector (Desktop) -->
+            <div class="hidden md:block absolute top-[40px] left-[10%] right-[10%] border-t-[3px] border-dashed border-bamboo-fresh/50 z-[-1]"></div>
+
+            <!-- Steps -->
+            <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
+                <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                    <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Baca Materi</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Pelajari teori rekayasa perangkat lunak.</p>
+            </div>
+            <!-- Dashed Line Connector (Mobile) -->
+            <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
+
+            <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
+                <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)] holo-glow">
+                    <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M12 3v2m-6 3h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2zm2 4h.01M14 12h.01M9 16h6"></path>
+                    </svg>
+                </div>
+                <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Ringkas dengan AI</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Menghasilkan poin penting konsep analisis.</p>
+            </div>
+            <!-- Dashed Line Connector (Mobile) -->
+            <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
+
+            <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
+                <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                    <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Simpan Catatan</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Tinjau ulang di dashboard Anda.</p>
+            </div>
+            <!-- Dashed Line Connector (Mobile) -->
+            <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
+
+            <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
+                <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                    <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.475 3.475 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.475 3.475 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.475 3.475 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.475 3.475 0 013.138-3.138z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Kerjakan Latihan</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Selesaikan kuis uji pemahaman.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="tentang" class="w-full max-w-[1000px] mx-auto px-6 py-10 md:py-20 relative z-10">
+        <div class="glass-panel dark:bg-[#121212]/90 px-3.5 py-6 sm:p-10 md:p-14 rounded-2xl sm:rounded-[2.5rem] relative overflow-hidden shadow-2xl border border-white/50 dark:border-white/5">
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-bamboo-fresh/15 rounded-full blur-[80px] pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-bamboo-emerald/15 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div class="text-center mb-12 relative z-10">
+                <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl font-black text-panda-black dark:text-white mb-3">
+                    Pertanyaan Umum
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 font-medium text-sm sm:text-base">Hal-hal yang sering ditanyakan mengenai kebutuhan pengguna siPanda</p>
+            </div>
+
+            <div class="space-y-4 relative z-10">
+
+                <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                    <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apa itu siPanda dan mengapa sistem ini dibuat?</span>
+                        <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                        <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                            Banyak pelajar merasa terbebani dan kehilangan fokus akibat metode belajar dengan materi teks yang sangat panjang. <strong>siPanda (Si Paham Inti & Atur Jeda)</strong> hadir untuk mengatasi masalah tersebut dengan menyediakan sistem pembelajaran digital yang merangkum materi secara cepat menggunakan AI dan mengatur waktu belajar secara terstruktur agar motivasi tetap terjaga.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                    <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Fitur utama apa saja yang tersedia untuk Pelajar?</span>
+                        <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                        <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                            Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Riwayat Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                    <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Bagaimana cara kerja fitur AI di sistem ini?</span>
+                        <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                        <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                            Fitur AI di siPanda <strong>hanya difokuskan untuk meringkas dan menyederhanakan materi</strong> teks yang panjang menjadi poin-poin penting. Hasil ringkasan tersebut secara otomatis dapat disimpan ke dalam Buku Catatan Digital, yang kemudian bebas disunting oleh pengguna untuk keperluan pendalaman materi secara mandiri.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                    <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Siapa saja yang memiliki akses ke platform siPanda?</span>
+                        <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                        <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                            Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>Admin</strong> dan <strong>Pelajar</strong>. Admin memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara Pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                    <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apakah siPanda bisa diakses menggunakan Handphone?</span>
+                        <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                        <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                            Tentu. Sistem siPanda dikembangkan berbasis Aplikasi Web yang <strong>sepenuhnya responsif (lintas platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui laptop, komputer pribadi, tablet, maupun ponsel, asalkan pengguna terhubung dengan jaringan internet.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <style>
+            .faq-item.is-open {
+                border-color: #75cb50 !important;
+                /* Warna bamboo-fresh siPanda */
+                box-shadow: 0 4px 20px -2px rgba(117, 203, 80, 0.2) !important;
+            }
+
+            .faq-item.is-open .faq-button span {
+                color: #75cb50 !important;
+            }
+
+            .faq-item.is-open .faq-icon {
+                color: #75cb50 !important;
+            }
+        </style>
+    </section>
+    <!-- Minimalis Footer -->
+    <footer class="bg-panda-black w-full py-10 text-center mt-20 relative z-20 border-t border-white/5">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <!-- Footer Logo -->
+            <div class="flex items-center gap-3">
+                <img src="{{ asset('images/logo-white.svg') }}" alt="siPanda Logo Dark" class="h-[3rem] w-auto" />
+            </div>
+
+            <p class="text-bamboo-light/70 text-sm font-medium">
+                &copy; {{ date('Y') }} siPanda - Analisis Kebutuhan Pengguna. Belajar lebih efektif.
+            </p>
+
+            <div class="flex gap-6 font-bold text-sm text-bamboo-light/70">
+                <a href="#" class="hover:text-bamboo-fresh transition-colors">Privacy</a>
+                <a href="#" class="hover:text-bamboo-fresh transition-colors">Terms</a>
+                <a href="#" class="hover:text-bamboo-fresh transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Subtle floating particle for extra detail -->
+    <div class="fixed bottom-10 left-[40%] w-2 h-2 bg-bamboo-fresh rounded-full animate-ping z-[-1] opacity-50"></div>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        var themeToggleBtn = document.getElementById('theme-toggle');
+        var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        var themeToggleMobileBtn = document.getElementById('theme-toggle-mobile-btn');
+        var themeToggleMobileDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
+        var themeToggleMobileLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
+
+        function updateThemeIcons(isDark) {
+            if (isDark) {
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.remove('hidden');
+                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.add('hidden');
+            } else {
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.remove('hidden');
+                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.add('hidden');
+            }
+        }
+
+        // Initialize based on OS or Local Storage preference
+        var isCurrentlyDark = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isCurrentlyDark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        updateThemeIcons(isCurrentlyDark);
+
+        function toggleTheme() {
+            var isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                updateThemeIcons(false);
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                updateThemeIcons(true);
+            }
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', toggleTheme);
+        }
+        if (themeToggleMobileBtn) {
+            themeToggleMobileBtn.addEventListener('click', toggleTheme);
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqButtons = document.querySelectorAll('.faq-button');
+
+            // Opsional: Buka otomatis item pertama saat halaman dimuat
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                const firstContent = firstFaq.querySelector('.faq-content');
+                const firstIcon = firstFaq.querySelector('.faq-icon');
+                firstFaq.classList.add('is-open');
+                firstContent.style.maxHeight = firstContent.scrollHeight + "px";
+                firstIcon.style.transform = 'rotate(180deg)';
+            }
+
+            faqButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const faqItem = button.parentElement;
+                    const faqContent = faqItem.querySelector('.faq-content');
+                    const icon = button.querySelector('.faq-icon');
+                    const isOpen = faqItem.classList.contains('is-open');
+
+                    // Tutup semua FAQ yang sedang terbuka
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('is-open');
+                        item.querySelector('.faq-content').style.maxHeight = null;
+                        item.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                    });
+
+                    // Jika yang di-klik sebelumnya tertutup, maka buka
+                    if (!isOpen) {
+                        faqItem.classList.add('is-open');
+                        faqContent.style.maxHeight = faqContent.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuToggleIcon = document.getElementById('menu-toggle-icon');
+
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => {
+                    const isOpen = mobileMenu.classList.contains('opacity-100');
+                    if (isOpen) {
+                        mobileMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                        mobileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                        menuToggleIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                    } else {
+                        mobileMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                        mobileMenu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                        menuToggleIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                    }
+                });
+
+                // Close dropdown when clicking any link
+                const mobileMenuLinks = mobileMenu.querySelectorAll('nav a, div a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                        mobileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                        menuToggleIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

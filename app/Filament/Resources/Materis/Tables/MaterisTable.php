@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Filament\Resources\Materis\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class MaterisTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('kategori_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('admin_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('judul_materi')
+                    ->searchable(),
+                TextColumn::make('tanggal_publikasi')
+                    ->dateTime()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                //
+            ])
+            ->recordActions([
+                ViewAction::make()
+                    ->icon('heroicon-o-eye')
+                    ->label('Lihat'),
+                EditAction::make()
+                    ->icon('heroicon-o-pencil')
+                    ->label('Ubah'),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}
