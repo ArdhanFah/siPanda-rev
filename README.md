@@ -2,7 +2,7 @@
 
 ![siPanda Banner](/home/ardhan/.gemini/antigravity-ide/brain/f71c45dc-e965-4565-ac41-8d5b11182f5c/sipanda_banner_1782584969691.png)
 
-# 🐼 siPanda
+# siPanda
 
 **siPanda (Sistem Pembelajaran AI Cerdas)** adalah platform _Project Based Learning_ yang dirancang untuk merevolusi cara siswa dan mahasiswa belajar. Dengan memadukan kecerdasan buatan (AI) mutakhir, gamifikasi, dan teknik manajemen waktu, siPanda hadir untuk membuat sesi belajarmu lebih efisien, menyenangkan, dan konsisten.
 
@@ -15,26 +15,26 @@
 
 <br/>
 
-## ✨ Fitur Utama
+## Fitur Utama
 
-### 🤖 1. Asisten Belajar AI (Smart Summarization & Quiz)
+### 1. Asisten Belajar AI (Smart Summarization & Quiz)
 Membaca materi PDF atau artikel panjang tak perlu memakan waktu berjam-jam.
 - **Rangkum Otomatis:** Cukup unggah dokumen (PDF), dan AI siPanda akan langsung membacanya, mengekstrak poin penting, dan menampilkannya dalam format catatan (*Markdown*) yang indah dan mudah dipahami.
 - **Latihan Soal AI:** Uji pemahaman Anda! Sistem akan menghasilkan kuis *Pilihan Ganda* interaktif berdasarkan dokumen yang Anda pelajari, memberikan evaluasi instan.
 
-### 🔥 2. Gamifikasi (Sistem Runtunan / Streak)
+### 2. Gamifikasi (Sistem Runtunan / Streak)
 Jaga konsistensi belajarmu dengan sistem *Gamification* modern.
 - Lakukan aktivitas belajar (login, rangkum, kuis) setiap hari untuk meningkatkan "Runtunan" (*Streak*) apimu.
 - Semakin tinggi Runtunan Anda, semakin keren Badge dan Warna Api (dari Oren, Biru, Ungu, hingga Emas).
 - **Pamerkan!** Bagikan "Kartu Runtunan" (*Share Card*) berbentuk potret (9:16) berdesain elegan ke media sosial (Instagram Story/WhatsApp) hanya dengan satu klik *download*.
 
-### ⏱️ 3. Pewaktu Pomodoro Super Ketat
+### 3. Pewaktu Pomodoro Super Ketat
 Fokus total tanpa distraksi!
 - Sistem Pomodoro dengan desain melayang yang interaktif.
 - **Mode Terkunci (Lock Screen):** Saat sesi *istirahat* tiba, siPanda akan **mengunci** layarmu agar kamu benar-benar beristirahat. 
 - **Game Lompat Panda:** Sambil menunggu waktu istirahat selesai, kamu bisa memainkan *mini-game* Lompat Panda langsung di dalam modal pengunci layar untuk meregangkan pikiran.
 
-### 🎨 4. Desain Modern (Glassmorphism & Dark Mode)
+### 4. Desain Modern (Glassmorphism & Dark Mode)
 Antarmuka pengguna (UI) yang dibuat dengan gaya paling kekinian.
 - Mengusung identitas warna hijau neon khas siPanda (`#75cb50`).
 - Elemen *glassmorphism* (kaca transparan), animasi halus, serta ikon dan efek *Glow/Shadow* kelas premium.
@@ -42,7 +42,7 @@ Antarmuka pengguna (UI) yang dibuat dengan gaya paling kekinian.
 
 ---
 
-## 📸 Tangkapan Layar (Screenshots)
+## Tangkapan Layar (Screenshots)
 
 *(Tambahkan tangkapan layar langsung dari aplikasimu di bawah ini agar GitHub kamu terlihat profesional)*
 
@@ -66,7 +66,7 @@ Antarmuka pengguna (UI) yang dibuat dengan gaya paling kekinian.
 
 ---
 
-## 🛠️ Tech Stack & Instalasi
+## Tech Stack & Instalasi
 1. **Backend:** Laravel 11.x
 2. **Admin Panel:** Filament PHP v3
 3. **Frontend:** TailwindCSS, Alpine.js, Blade Components
@@ -101,5 +101,5 @@ php artisan serve
 ---
 
 <div align="center">
-  <p>Dibuat dengan ❤️ untuk merevolusi pendidikan di era AI.</p>
+  <p>Dibuat dengan sepenuh hati untuk merevolusi pendidikan di era AI.</p>
 </div>
